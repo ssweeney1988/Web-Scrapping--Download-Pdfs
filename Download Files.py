@@ -10,13 +10,12 @@ url= "http://www.nswrealestate.com.au/renting/tenancy-application"
 download_path= "C:\Python\mose"
 
 
-i=0
-request = urllib2.Request(url,None)
-print request
-html =  urllib2.urlopen(request)
+res = requests.get(url)
+res.raise_for_status()  # Raises if there is an error
+soup= BeautifulSoup(res.text, "html.parser")
 
-print html
-soup= BeautifulSoup(html.read(),"html.parser")
+
+i=0
 
 for tag in soup.findAll('a', href=True): # find <a> tags with href in it so you know its for urls
 	#tag['href'] = urlparse.urljoin(url, tag['href']) 
